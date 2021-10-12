@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block bodyId %}welcomePage{% endblock %}
+
+{% block headerContent %}
+<p id='name'>{{ logged_user.Prenom }} {{ logged_user.Nom }}, bienvenue sur Edinet !</p>
+<p id='navigationLinks'>
+	<a href="/clients" class="buttonLink">Clients</a>
+</p>
+{% endblock %}
+{% block content %}
+<sectionid='message'></section>
+{% endblock %}

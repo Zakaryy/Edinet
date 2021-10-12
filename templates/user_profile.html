@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Creation d'un profil{% endblock %}
+
+{% block bodyId %}userProfilePage{% endblock %}
+
+{% block content %}
+<h1>Creation d'un compte</h1>
+<form action = "register" method="get">
+	{{ form.as_p }}
+	<p>
+		<input type="submit" value="Creer un compte" />
+	</p>
+</form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Clients{% endblock %}
+
+{% block bodyId %}Clients{% endblock %}
+{% block headerContent %}
+<p id='navigationLinks'>
+	<a href="/addClient" class="buttonLink">Ajouter Client</a>
+</p>
+{% endblock %}
+{% block content %}
+<h1>Liste des clients</h1>
+<table id='tableClient'>
+	<td>ID</td>
+	<td>Raison_sociale</td>
+	<td>Commercial</td>
+	<td>Adresse1</td>
+	<td>Adresse2</td>
+	<td>Code_postale</td>
+	<td>Ville</td>
+	<td>Pays</td>
+	{% for i in data %}
+	<tr>
+		<td>{{i.id}}</td>
+		<td>{{i.Raison_sociale}}</td>
+		<td>{{i.Commercial}}</td>
+		<td>{{i.Adresse1}}</td>
+		<td>{{i.Adresse2}}</td>
+		<td>{{i.Code_postale}}</td>
+		<td>{{i.Ville}}</td>
+		<td>{{i.Pays}}</td>
+	</tr>
+	{% endfor %}
+</table>
+{% endblock %}
