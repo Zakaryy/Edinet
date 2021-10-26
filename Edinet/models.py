@@ -1,6 +1,5 @@
  #-*- coding: utf-8 -*-
 from django.db import models
-import django_tables2 as tables
 
 #Utilisateurs de Edinet
 class Utilisateur(models.Model):

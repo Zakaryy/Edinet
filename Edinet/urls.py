@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from Edinet.views import welcome, login, register, clients, TestView
+from Edinet.views import welcome, login, register, ClientListView, addClient
+from Edinet.models import Utilisateur, Client, Info_client
 
 urlpatterns = [
     url(r'^welcome$', welcome),
@@ -24,5 +25,6 @@ urlpatterns = [
     url(r'^$', login),
     url(r'^admin/', admin.site.urls),
     url(r'^register$',register),
-    url(r'^clients$',client)
+    url(r'^clients/', ClientListView.as_view()),
+    url(r'^add-client$', addClient, name="add-cli")
 ]

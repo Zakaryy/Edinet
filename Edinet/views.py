@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
-from Edinet.models import Utilisateur, Client, Info_client
-from django.shortcuts import render, redirect
 from datetime import datetime 
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
+
+from django_tables2 import SingleTableView
+
 from Edinet.forms import LoginForm, UserProfileForm, AddClientForm
-import pandas as pd
+from Edinet.models import Utilisateur, Client, Info_client
+from Edinet.tables import ClientTable
 
-from django.views.generic import ListView, CreateView
-
-
+#Welcome page
 def welcome(request):
 	logged_user = get_logged_user_from_request(request)
 	if logged_user:
 		return render(request, 'welcome.html', {'logged_user': logged_user})
 	else:
 		return redirect('/login')
-	
+
+#login page
 def login(request):
 	#	#test si le formulaire est envoye
 	if len(request.POST) > 0:
@@ -30,6 +33,7 @@ def login(request):
 		form = LoginForm()
 	return render(request, 'login.html', {'form': form})
 
+#Creer un compte
 def register(request):
 	if len(request.GET) > 0:
 		form = UserProfileForm(request.GET)
@@ -42,6 +46,7 @@ def register(request):
 		form = UserProfileForm()
 		return render(request,'user_profile.html', {'form':form})
 
+#enregister les donnees de l'utilisateur authentifie
 def get_logged_user_from_request(request):
 	if 'logged_user_id' in request.session:
 		logged_user_id = request.session['logged_user_id']
@@ -52,12 +57,21 @@ def get_logged_user_from_request(request):
 	else:
 		return None
 
-def clients(request):
-	df = pd.DataFrame(list(Client.objects.all().values()))
-	allData=[]
-	for i in range(df.shape[0]):
-		temp=df.loc[i]
-		allData.append(dict(temp))
-	context = {'data': allData}
-	data = Client.objects.all().values()
-	return render(request, 'clients.html', context)
+#afficher les clients
+class ClientListView(SingleTableView):
+	model = Client
+	table_class = ClientTable
+	template_name = 'clients.html'
+
+#Ajouter un client a la base de donnee
+def addClient(request):
+	form = AddClientForm
+
+	if request.method == 'POST':
+		form = AddClientForm(request.POST)
+		if form.is_valid():
+			form.save()
+
+	context = {'form':form}
+	return render(request, 'add-client.html', context)
+ 

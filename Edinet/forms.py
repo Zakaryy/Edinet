@@ -1,7 +1,9 @@
 from django import forms
 from Edinet.models import Utilisateur, Client, Info_client
 
+#Formulaire de connexion a l'intranet 
 class  LoginForm(forms.Form):
+	#Creation des champs
 	email = forms.EmailField(label='Courriel')
 	password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
 
@@ -17,15 +19,14 @@ class  LoginForm(forms.Form):
 				raise forms.ValidationError("Adresse mail ou mot de passe incorrect.")
 		return cleaned_data
 
+#register
 class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model = Utilisateur
-		exclude = ('registration_number',)
+		exclude = ('registration_number','Mobile')
 
-class AddClientForm(forms.Form):
-	raison_sociale = forms.CharField(label='Raison sociale:')
-	
-	def clean(self):
-		cleaned_data = super (AddClientForm, self).clean()
-		raison_sociale = cleaned_data.get("raison_sociale")
-		return cleaned_data, raison_sociale	
+#ajouter un client
+class AddClientForm(forms.ModelForm):
+	class Meta:
+		model = Client
+		fields = '__all__'

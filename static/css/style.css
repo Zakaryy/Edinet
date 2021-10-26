@@ -116,3 +116,7 @@ td {
     border: 1px;
     border-color:  #044f5e;
 }
+
+table.mytable {
+	background-color: #3e3e3e;
+}

@@ -6,10 +6,9 @@
 
 {% block content %}
 <h1>Ajout d'un client</h1>
-<form action = 'addClient' method='get'>
+<form action = '' method='POST'>
+	{% csrf_token %}
 	{{form.as_p}}
-	<p>
-		<input type="submit" name="Ajouter client"/>
-	</p>
+	<button type='submit' class "btn btn-primary btn-sm" value=""> Enregistrer</button>
 </form>
-{% endblock %}
+{% endblock content %}
